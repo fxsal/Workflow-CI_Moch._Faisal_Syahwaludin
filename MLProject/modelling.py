@@ -1,3 +1,4 @@
+import os
 import dagshub
 import mlflow
 import mlflow.sklearn
@@ -45,4 +46,5 @@ with mlflow.start_run():
 print("Model berhasil dilatih dan hasil dilog ke DagsHub.")
 
 print("Lihat tracking di: https://dagshub.com/fxsal/Membangun_model.mlflow")
+
 
