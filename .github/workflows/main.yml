@@ -19,14 +19,20 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          pip install mlflow dagshub scikit-learn pandas numpy imbalanced-learn
+          pip install mlflow dagshub scikit-learn pandas numpy imbalanced-learn lightgbm
 
-      - name: Run Training
+      - name: Run Model Training
         run: |
           python MLProject/modelling.py
 
-      - name: Upload trained model artifact
+      - name: Upload Trained Model Artifact
         uses: actions/upload-artifact@v3
         with:
           name: model-artifact
           path: MLProject/mlruns/
+
+      - name: Build and Push Docker Image
+        run: |
+          mlflow models build-docker -m MLProject/mlruns/0/<RUN_ID>/artifacts/model -n fxsal/ecommerce-ml-model:latest
+          echo ${{ secrets.DOCKERHUB_TOKEN }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+          docker push fxsal/ecommerce-ml-model:latest
