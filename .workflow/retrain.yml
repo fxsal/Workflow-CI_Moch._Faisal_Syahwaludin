@@ -1,0 +1,25 @@
+name: Retrain Model CI
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  retrain:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+
+      - name: Install Dependencies
+        run: |
+          pip install mlflow dagshub scikit-learn pandas numpy imbalanced-learn
+
+      - name: Run Training
+        run: |
+          python MLProject/modelling.py
