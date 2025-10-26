@@ -6,7 +6,6 @@ from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score
 
-# Gunakan token dari environment variable (GitHub Secret)
 DAGSHUB_USER = "fxsal"
 DAGSHUB_REPO = "membangun_model_ml"
 DAGSHUB_TOKEN = os.getenv("0f553cf619e2ee881a4798ffc10f29cbd87265a8")
@@ -46,3 +45,4 @@ with mlflow.start_run():
 print("Model berhasil dilatih dan hasil dilog ke DagsHub.")
 
 print("Lihat tracking di: https://dagshub.com/fxsal/Membangun_model.mlflow")
+
