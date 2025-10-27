@@ -38,6 +38,6 @@ jobs:
           DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
           DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
         run: |
-          mlflow models build-docker -m MLProject/mlruns/0/<RUN_ID>/artifacts/model -n fxsal/ecommerce-ml-model:latest
+          mlflow models build-docker -m MLProject/mlruns/0/bb66aabb00c2439f95d47c006ada62d7/artifacts/model -n fxsal/ecommerce-ml-model:latest
           echo $DOCKERHUB_TOKEN | docker login -u $DOCKERHUB_USERNAME --password-stdin
           docker push fxsal/ecommerce-ml-model:latest
