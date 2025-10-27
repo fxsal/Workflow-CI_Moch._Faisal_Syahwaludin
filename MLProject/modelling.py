@@ -22,7 +22,7 @@ mlflow.set_tracking_uri("https://dagshub.com/fxsal/Membangun_model.mlflow")
 mlflow.set_experiment("E-Commerce Shipping - Basic AutoLog")
 
 # Load Dataset hasil preprocessing
-df = pd.read_csv('E-Commerce_Shipping_Data_preprocessing.csv')
+df = pd.read_csv('MLProject/E-Commerce_Shipping_Data_preprocessing.csv')
 X = df.drop(columns=['reached_on_time'])
 y = df['reached_on_time']
 
@@ -46,6 +46,7 @@ with mlflow.start_run():
 print("Model berhasil dilatih dan hasil dilog ke DagsHub.")
 
 print("Lihat tracking di: https://dagshub.com/fxsal/Membangun_model.mlflow")
+
 
 
 
