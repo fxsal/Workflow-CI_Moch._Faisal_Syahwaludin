@@ -23,8 +23,9 @@ jobs:
 
       - name: Run Model Training
         env:
-          DAGSHUB_TOKEN: ${{ secrets.DAGSHUB_TOKEN }}
+          DAGSHUB_TOKEN: 59ba3d1394b9f8ff7c64ff46a56c8d71ebdab563
         run: |
+          echo "Mulai training model dan logging ke DagsHub..."
           python MLProject/modelling.py
 
       - name: Upload trained model artifact
@@ -35,9 +36,10 @@ jobs:
 
       - name: Build and Push Docker Image
         env:
-          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-          DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+          DOCKERHUB_USERNAME: faisals21
+          DOCKERHUB_TOKEN: dckr_pat_Vq493Jd5xk_sxHfLz-UGW3BDGKk
         run: |
-          mlflow models build-docker -m MLProject/mlruns/0/bb66aabb00c2439f95d47c006ada62d7/artifacts/model -n fxsal/ecommerce-ml-model:latest
+          echo "Mulai build Docker image dari model MLflow..."
+          mlflow models build-docker -m MLProject/mlruns/0/bb66aabb00c2439f95d47c006ada62d7/artifacts/model -n faisals21/ecommerce-ml-model:latest
           echo $DOCKERHUB_TOKEN | docker login -u $DOCKERHUB_USERNAME --password-stdin
-          docker push fxsal/ecommerce-ml-model:latest
+          docker push faisals21/ecommerce-ml-model:latest
