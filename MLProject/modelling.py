@@ -1,21 +1,19 @@
 import os
 import dagshub
 import mlflow
-import mlflow.sklearn
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score
 
-# Konfigurasi DagsHub
 DAGSHUB_USER = "fxsal"
 DAGSHUB_REPO = "Membangun_model"
-DAGSHUB_TOKEN = os.getenv("DAGSHUB_TOKEN")
+DAGSHUB_TOKEN = os.getenv("DAGSHUB_TOKEN")  # ✅ ini ambil dari Secrets otomatis
+
+mlflow.set_tracking_uri(f"https://dagshub.com/{DAGSHUB_USER}/{DAGSHUB_REPO}.mlflow")
 
 dagshub.auth.add_app_token(DAGSHUB_TOKEN)
 dagshub.init(repo_owner=DAGSHUB_USER, repo_name=DAGSHUB_REPO, mlflow=True)
-mlflow.set_tracking_uri(f"https://dagshub.com/{DAGSHUB_USER}/{DAGSHUB_REPO}.mlflow")
-mlflow.set_experiment("E-Commerce Shipping - Basic AutoLog")
 
 # Load Dataset
 df = pd.read_csv('MLProject/E-Commerce_Shipping_Data_preprocessing.csv')
@@ -37,3 +35,4 @@ with mlflow.start_run():
 
 print("Model berhasil dilatih dan hasilnya dilog ke DagsHub.")
 print("Lihat tracking di: https://dagshub.com/fxsal/Membangun_model.mlflow")
+
